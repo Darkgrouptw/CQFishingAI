@@ -5,7 +5,6 @@
 
 # User-specific files
 *.suo
-*.user
 *.userosscache
 *.sln.docstates
 
@@ -328,3 +327,4 @@ ASALocalRun/
 
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
+OtherPackages/

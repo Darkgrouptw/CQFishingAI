@@ -28,6 +28,12 @@
       <Extensions>moc;h;cpp</Extensions>
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
+    <Filter Include="Header Files\Recognize">
+      <UniqueIdentifier>{2e7e97f2-6de3-472b-a867-241c55c94dd6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Recognize">
+      <UniqueIdentifier>{6286b6fa-8dab-4c1c-8c53-bb230202075d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -35,6 +41,9 @@
     </ClCompile>
     <ClCompile Include="CQFishingAI.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RecognizableObject.cpp">
+      <Filter>Source Files\Recognize</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -51,5 +60,10 @@
     <QtRcc Include="CQFishingAI.qrc">
       <Filter>Resource Files</Filter>
     </QtRcc>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="RecognizableObject.h">
+      <Filter>Header Files\Recognize</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
