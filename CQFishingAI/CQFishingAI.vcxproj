@@ -126,6 +126,7 @@
     <QtRcc Include="CQFishingAI.qrc" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="GlobalDefine.h" />
     <ClInclude Include="RecognizableObject.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
