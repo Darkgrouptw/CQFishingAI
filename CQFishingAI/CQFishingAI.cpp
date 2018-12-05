@@ -23,66 +23,73 @@ CQFishingAI::CQFishingAI(QWidget *parent) : QMainWindow(parent)
 	#pragma endregion
 	#pragma region Debug 相關
 	#ifdef DEBUG_RESULT
-	namedWindow("原始影像");
-	moveWindow("原始影像", -1920, 0);
+	namedWindow(OrgWindowTitle.toStdString());
+	moveWindow(OrgWindowTitle.toStdString(), -1900, 50);
+	namedWindow(FeatureWindowTitle.toStdString());
+	moveWindow(FeatureWindowTitle.toStdString(), -950, 50);
 	#endif
+	#pragma endregion
+	#pragma region Recognize 部分
+	// 轉輪
+	Wheel* wheel = new Wheel();
+	RecognizeArray.push_back(wheel);
 	#pragma endregion
 }
 CQFishingAI::~CQFishingAI()
 {
+	#pragma region 刪除其他東西
 	delete timer;
+	#pragma endregion
+	#pragma region Recognize 部分
+	for (int i = 0; i < RecognizeArray.size(); i++)
+		delete RecognizeArray[i];
+	#pragma endregion
 }
 
+//////////////////////////////////////////////////////////////////////////
+// Helper Function
+//////////////////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////////////////
+// Slots
+//////////////////////////////////////////////////////////////////////////
 void CQFishingAI::CaptureScreen()
 {
-	/*	while (true)
-	{
-	Mat frame;
-	cap >> frame;
-
-	if (frame.empty())
-	break;
-
-	imshow("原始", frame);
-
-	// ESC
-	char c = (char)waitKey(25);
-	if (c == 27)
-	break;
-	}
-	destroyWindow("原始");*/
 	#pragma region 抓取畫面資料
 	// 這邊主要分兩個部分
 	// 1. 使用 WinAPI 抓取畫面位置
 	// 2. 使用 Video
-	Mat screen;
+	Mat Screen;
 	#ifndef TEST_ON_VIDEO
 	#else
-	capVideo >> screen;
-	
-	// 如果是空的話
-	// 停止
-	if (screen.empty() || times > 4000)
-	{
-		timer->stop();
-		destroyWindow("原始影像");
-		return;
-	}
+	// 抓取影像
+	capVideo >> Screen;
 
 	// 擷取有用的地方
-	screen = screen(Rect(
+	Screen = Screen(Rect(
 		UsefulStartPosition.x(), UsefulStartPosition.y(),			// x, y
 		UsefulEndPosition.x() - UsefulStartPosition.x(),			// Width
 		UsefulEndPosition.y() - UsefulStartPosition.y()				// Height
 	));
-	QString FileLocation = "D:/5-1/" + QString::number(times++) + ".png";
-	imwrite(FileLocation.toStdString(), screen);
-	#endif // !TEST_ON_VIDEO
+
+	// Feature 抓取
+	/*for (int i = 0; i < RecognizeArray.size(); i++)
+	{
+		Mat mask = RecognizeArray[i]->FilterMask(Screen);
+	}*/
+	#endif
 	#pragma endregion
 	#pragma region 顯示 Debug 結果
 	#ifdef DEBUG_RESULT
-	cv::resize(screen.clone(), screen, Size(screen.cols / ResultDebugSizeScale, screen.rows / ResultDebugSizeScale));
-	imshow("原始影像", screen);
+	// 原始影像
+	Mat ScreenResize;
+	cv::resize(Screen, ScreenResize, Size(Screen.cols / ResultDebugSizeScale, Screen.rows / ResultDebugSizeScale));
+	imshow(OrgWindowTitle.toStdString(), ScreenResize);
+
+	// Debug 後的影像
+	Mat featureMask;
+	RecognizeArray[0]->FilterMask(Screen, featureMask);
+	imshow(FeatureWindowTitle.toStdString(), featureMask);
 	#endif
 	#pragma endregion
 }

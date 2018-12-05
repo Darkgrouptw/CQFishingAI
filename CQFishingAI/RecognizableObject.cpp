@@ -7,8 +7,8 @@ RecognizableObject::~RecognizableObject()
 {
 }
 
-Mat RecognizableObject::FilterMask(Mat img)
+bool RecognizableObject::FilterMask(Mat img, Mat& mask)
 {
-	Mat mask = Mat::zeros(img.size(), CV_8U);
-	return  mask;
+	mask = Mat::zeros(img.size(), CV_8U);
+	return false;
 }

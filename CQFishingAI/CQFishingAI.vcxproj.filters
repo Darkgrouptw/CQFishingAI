@@ -45,6 +45,9 @@
     <ClCompile Include="RecognizableObject.cpp">
       <Filter>Source Files\Recognize</Filter>
     </ClCompile>
+    <ClCompile Include="Wheel.cpp">
+      <Filter>Source Files\Recognize</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="CQFishingAI.h">
@@ -67,6 +70,9 @@
     </ClInclude>
     <ClInclude Include="GlobalDefine.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Wheel.h">
+      <Filter>Header Files\Recognize</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

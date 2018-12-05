@@ -1,14 +1,24 @@
 ﻿#pragma once
-#include <iostream>
-#include <QDir>
 
 #include <QtWidgets/QMainWindow>
 #include "ui_CQFishingAI.h"
 #include "GlobalDefine.h"
 
+//////////////////////////////////////////////////////////////////////////
+// Recognize 的部分
+//////////////////////////////////////////////////////////////////////////
+#include "RecognizableObject.h"
+#include "Wheel.h"
+
+#include <iostream>
+#include <cassert>
+
+#include <QDir>
 #include <QTimer>
 #include <QSize>
+#include <QVector>
 #include <QVector2D>
+#include <QTextCodec>
 
 #include <opencv2/opencv.hpp>
 //#include <opencv2/imgproc.hpp>
@@ -28,11 +38,22 @@ private:
 	Ui::CQFishingAIClass ui;
 
 	//////////////////////////////////////////////////////////////////////////
+	// Helper Function
+	//////////////////////////////////////////////////////////////////////////
+
+
+	//////////////////////////////////////////////////////////////////////////
+	// 辨別相關的 Code
+	// 0. 轉輪
+	//////////////////////////////////////////////////////////////////////////
+	QVector<RecognizableObject*> RecognizeArray;
+
+	//////////////////////////////////////////////////////////////////////////
 	// 系統相關參數 (後面要搬到 CaptureScreen 的 Function 裡)
 	//////////////////////////////////////////////////////////////////////////
-	const QSize		ScreenSize				= QSize(1416, 884);
-	const QVector2D	UsefulStartPosition		= QVector2D(7, 48);
-	const QVector2D	UsefulEndPosition		= QVector2D(1414, 838);
+	const QSize		ScreenSize							= QSize(1422, 886);
+	const QVector2D	UsefulStartPosition					= QVector2D(8, 47);
+	const QVector2D	UsefulEndPosition					= QVector2D(1414, 838);
 
 
 	//////////////////////////////////////////////////////////////////////////
@@ -48,10 +69,10 @@ private:
 	// TEST_ON_VIDEO & DEBUG_RESULT
 	//////////////////////////////////////////////////////////////////////////
 	VideoCapture	capVideo;
-	QString			videoLocation = "C:/Users/Dark/Documents/Bandicam/5-1.mp4";
-	// QString			videoLocation = "C:/Users/Dark/Documents/Bandicam/6-1.mp4";
-	float			ResultDebugSizeScale = 1.f;
-
+	QString			videoLocation = "C:/Users/Dark/Documents/Bandicam/8-1.mp4";
+	QString			OrgWindowTitle = "Original Image";
+	QString			FeatureWindowTitle = "Feature Image";
+	float			ResultDebugSizeScale = 1.5f;
 
 private slots:
 	void			CaptureScreen();											// 要去拿畫面資料了						

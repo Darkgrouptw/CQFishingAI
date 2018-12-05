@@ -1,9 +1,7 @@
 ﻿#pragma once
-#include "opencv2/opencv.hpp"
-#include "opencv2/highgui.hpp"
-#include "opencv2/imgproc.hpp"
-
 #include <iostream>
+
+#include <opencv2/opencv.hpp>
 
 using namespace cv;
 using namespace std;
@@ -14,7 +12,16 @@ public:
 	RecognizableObject();
 	~RecognizableObject();
 
+	//////////////////////////////////////////////////////////////////////////
+	// 抓取有效的區塊
+	//////////////////////////////////////////////////////////////////////////
+	virtual bool FilterMask(Mat, Mat&);												// 輸入：原圖、Mask(白代表有東西)，輸出：bool (是否有效)
 
-	virtual Mat FilterMask(Mat);								// 輸入：原圖、輸出：CV_8U 的 Mask (白代表有東西)
+	//////////////////////////////////////////////////////////////////////////
+	// Static Function
+	//////////////////////////////////////////////////////////////////////////
+	//static Rect Get
+private:
+	Rect WorkingArea;
 };
 
